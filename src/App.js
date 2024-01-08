@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import Navbar from "./Navbar";
+import Inicio from "./Inicio";
+// Esto se llama jsx lo que se parece a html pero no es html
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const titulo = "Bienvenidos al nuevo Blog";
+    // Para mostrar una variable tenemos que poner una variable entre llaves
+    const likes = 50;
+    // Todo se renderiza como un string excepto los objetos(Da error)
+    // App.js se le llama componente root
+    const link = "https://www.google.com/";
+    return (
+        <div className="App">
+            <div className="content">
+                <Navbar />
+                <Inicio />
+                
+            </div>
+        </div>
+    );
 }
 
 export default App;
