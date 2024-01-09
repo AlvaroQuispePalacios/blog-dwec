@@ -1,4 +1,3 @@
-import "./App.css";
 import Navbar from "./Navbar";
 import Inicio from "./Inicio";
 // Esto se llama jsx lo que se parece a html pero no es html
@@ -11,10 +10,9 @@ function App() {
     const link = "https://www.google.com/";
     return (
         <div className="App">
+            <Navbar />
             <div className="content">
-                <Navbar />
                 <Inicio />
-                
             </div>
         </div>
     );
