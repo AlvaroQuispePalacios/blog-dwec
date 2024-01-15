@@ -1,5 +1,5 @@
 // Asi se recoge al promp en el parametro de la funcion, luego se le da a una variable el parametro de entrada props pero como es un objeto que contiene todos los datos pasados 
-const BlogList = ({blogs, titulo, handleEliminarBlog}) => {
+const BlogList = ({blogs, titulo}) => {
     // console.log(props);
     // const blogs = props.blogs;
     // const titulo = props.titulo;
@@ -13,7 +13,6 @@ const BlogList = ({blogs, titulo, handleEliminarBlog}) => {
                     <h2>{blog.titulo}</h2>
                     <p>{blog.body}</p>
                     <small>{blog.autor}</small><br/>
-                    <button onClick={() => handleEliminarBlog(blog.id)}>Eliminar blog</button>
                 </div>
             ))}
         </div>
@@ -21,3 +20,10 @@ const BlogList = ({blogs, titulo, handleEliminarBlog}) => {
 };
 
 export default BlogList;
+
+/*
+    /blogs      GET         Devuelve todos los blogs
+    /blogs/(id) GET         Devuelve un unico blog
+    /blogs      POST        Añade un nuevo blog
+    /blogs/(id) DELETE      Elimina un blog
+*/

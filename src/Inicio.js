@@ -18,59 +18,52 @@ const Inicio = () => {
     };
     
 */
-    const [blogs, setBlogs] = useState([
-        {
-            titulo: "Mi nueva Web",
-            body: "Texto mostrar",
-            autor: "Alvaro",
-            id: 1,
-        },
-        {
-            titulo: "Pokemon",
-            body: "Mucho texto pokemon",
-            autor: "Yo pokemon",
-            id: 2,
-        },
-        {
-            titulo: "Digimon",
-            body: "Mucho texto digimon",
-            autor: "Yo digimon",
-            id: 3,
-        },
-    ]);
-
-    const [nombre, setNombre] = useState("AA");
-    const [contador, setContador] = useState(0);
-
-    const handleEliminarBlog = (id) => {
-        const nuevoBlog = blogs.filter((blog) => blog.id !== id);
-        setBlogs(nuevoBlog);
-    };
-
-    // useEffect((PrimerArgumento), SegundoArgumento)
+    const [blogs, setBlogs] = useState(null);
+    const [cargando, setCargando] = useState(true);
+    const [error, setError] = useState(null);
+    // useEffect((PrimerArgumento), SegundoArgumento(Este argumento en la array de dependencias))
     useEffect(() => {
-        console.log("useEffect");
-        console.log(blogs);
-    }, [contador]);
-// Promps: Nos permite pasar datos de un componente a otro de un elemento padre que pase la ingormacion a un componente hijo
+        setTimeout(() => {
+            fetch("http://localhost:8000/blogs")
+                .then((res) => {
+                    console.log(res);
+                    if(!res.ok){
+                        throw Error("No se ha podido recuperar la informacion D:");
+                    }
+                    return res.json();
+                })
+                .then((datos) => {
+                    // console.log(datos);
+                    setBlogs(datos);
+                    setCargando(false);
+                    setError(null);
+                })
+                // 
+                .catch(err => {
+                    // console.log(err.message);
+                    setCargando(false);
+                    setError(err.message);
+                })
+        }, 300);
+    }, []);
+    // Promps: Nos permite pasar datos de un componente a otro de un elemento padre que pase la ingormacion a un componente hijo
 
     return (
         <div className="home">
+            {cargando && <div>Cargando...</div>}
+            {error && <div>{error}</div>}
             {/* Esto es un promp asi se le pasa la informacion a otro componente --> blogs = {blogs} */}
-            <BlogList blogs = {blogs} titulo = "Listado de blogs" handleEliminarBlog = {handleEliminarBlog}/> 
-{/* 
+            {blogs && <BlogList blogs={blogs} titulo="Listado de blogs" />}
+            {/* 
             <BlogList blogs = {blogs.filter((blog) => blog.autor === "Alvaro")} titulo = "Blogs de Alvaro" handleEliminarBlog = {handleEliminarBlog}/> 
 
             <BlogList blogs = {blogs.filter((blog) => blog.titulo === "Pokemon")} titulo = "Blogs de Pokemon" handleEliminarBlog = {handleEliminarBlog}/>
 
             <BlogList blogs = {blogs.filter((blog) => blog.id === 3)} titulo = "Blogs de Digimon" handleEliminarBlog = {handleEliminarBlog}/> */}
-            <p>{nombre}</p>
-            <button onClick={() => setNombre("AAA")}>Cambio de nombre</button>
         </div>
     );
 };
 export default Inicio;
-
 
 // Hook
 /* useEffect
