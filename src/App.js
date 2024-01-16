@@ -1,5 +1,8 @@
 import Navbar from "./Navbar";
 import Inicio from "./Inicio";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Crear from "./Crear";
+import Detalles from "./Detalles";
 // Esto se llama jsx lo que se parece a html pero no es html
 function App() {
     const titulo = "Bienvenidos al nuevo Blog";
@@ -9,12 +12,24 @@ function App() {
     // App.js se le llama componente root
     const link = "https://www.google.com/";
     return (
-        <div className="App">
-            <Navbar />
-            <div className="content">
-                <Inicio />
+        <Router>
+            <div className="App">
+                <Navbar />
+                <div className="content">
+                    <Switch>
+                        <Route exact path = "/">
+                            <Inicio /> 
+                        </Route>
+                        <Route path = "/create">
+                            <Crear /> 
+                        </Route>
+                        <Route path = "/detalle">
+                            <Detalles /> 
+                        </Route>
+                    </Switch>
+                </div>
             </div>
-        </div>
+        </Router>
     );
 }
 
